@@ -33,5 +33,5 @@ jobs:
           file: ./backend/Dockerfile  
           push: true
           tags: |
-            palronaq/todoapp-frontend:v${{inputs.tag_name}}  
+            palronaq/todoapp-backend:v${{inputs.tag_name}}  
 
