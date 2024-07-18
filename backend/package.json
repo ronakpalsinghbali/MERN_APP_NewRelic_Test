@@ -5,7 +5,7 @@
   "main": "Server.js",
   "scripts": {
     "dev": "nodemon Server.js",
-    "start": "node Server.js"
+    "start": "node -r newrelic Server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^7.4.4"
+    "mongoose": "^7.4.4",
+    "newrelic": "^11.23.1"
   }
 }
