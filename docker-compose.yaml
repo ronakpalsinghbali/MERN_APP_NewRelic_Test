@@ -1,0 +1,61 @@
+
+version: '3'
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: todoapp-frontend:v1
+    container_name: frontend-cont
+    stdin_open: true
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_BACKEND_URL: http://localhost:5000
+    networks:
+      - todo-app
+
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    image: todoapp-backend:v1 
+    container_name: backend-cont
+    ports:
+      - '5000:5000' 
+    environment:
+      MONGO_URL: "mongodb://mongodb:27017/"
+    networks:
+      - todo-app
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo 
+    container_name: mongodb-cont
+    ports:
+      - '27017:27017' 
+    networks:
+      - todo-app
+    volumes:
+      - mongodb_data:/data/db 
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express-cont
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_BASICAUTH_USERNAME: user1
+      ME_CONFIG_BASICAUTH_PASSWORD: pass1
+    networks:
+      - todo-app
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_data: 
+
+networks:
+  todo-app:
